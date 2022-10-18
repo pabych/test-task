@@ -1,0 +1,1 @@
+CREATE TABLE request_entity (id int PRIMARY KEY, message VARCHAR(255));

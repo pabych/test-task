@@ -18,6 +18,9 @@ import reactor.test.StepVerifier;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
+/**
+ * Integration test for "/v1/process" endpoint
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ControllerTest {
 
@@ -31,11 +34,18 @@ public class ControllerTest {
     @MockBean
     private WebService webService;
 
+    /**
+     * Removing all records from DB before each test
+     */
     @BeforeEach
     void setUp() {
         requestEntityRepository.deleteAll().subscribe();
     }
 
+    /**
+     * Test process method. Web-service is mocked
+     * Check if the data was persisted to DB
+     */
     @Test
     void process() {
         int id = 1;
@@ -62,6 +72,10 @@ public class ControllerTest {
                 .verifyComplete();
     }
 
+    /**
+     * Test process method if web-service returns 5xx error. Web-service is mocked
+     * Check if the data was not persisted to DB
+     */
     @Test
     void process_5xx() {
         int id = 1;

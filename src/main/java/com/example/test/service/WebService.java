@@ -9,19 +9,38 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-
+/**
+ * Service to communicate with external web-service
+ */
 @Slf4j
 @Component
 public class WebService {
 
+    /**
+     * Non-blocking, reactive client to communicate with web-service
+     */
     private final WebClient webClient;
+
+    /**
+     * SOAP service URL
+     */
     private final String soapServiceUrl;
 
+    /**
+     * Controller with autowiring WebClient and binding SOAP service URL from ${soap.service.url} property
+     * @param webClient WebClient
+     * @param soapServiceUrl SOAP service URL
+     */
     public WebService(WebClient webClient, @Value("${soap.service.url}") String soapServiceUrl) {
         this.webClient = webClient;
         this.soapServiceUrl = soapServiceUrl;
     }
 
+    /**
+     * Asynchronously call external web-service according to provided WSDL
+     * @param message Message
+     * @return {@code Mono<Resultcode>}
+     */
     public Mono<Resultcode> postMessage(Message message) {
         return webClient.post()
                 .uri(soapServiceUrl)

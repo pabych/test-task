@@ -1,1 +1,1 @@
-CREATE TABLE request_entity (id int PRIMARY KEY, message VARCHAR(255));
+CREATE TABLE IF NOT EXISTS request_entity (id INTEGER, message VARCHAR(255));

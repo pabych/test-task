@@ -12,9 +12,16 @@ import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * WebClient configuration
+ */
 @Configuration
 public class WebClientConfiguration {
 
+    /**
+     * Bean of WebClient with some options
+     * @return WebClient
+     */
     @Bean
     public WebClient webClient() {
         HttpClient httpClient = HttpClient.create()
